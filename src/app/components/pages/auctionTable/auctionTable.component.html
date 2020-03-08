@@ -1,0 +1,44 @@
+<button class="btn btn-primary" (click)="openNewAuction()">Create New Auction</button>
+<br>
+<form>
+  <div class="form-group form-inline">
+      Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+  </div>
+</form>
+<form>
+  <div class="form-group form-inline">
+      Select Category: <input class="form-control ml-2" type="number" [formControl]="category"/>
+  </div>
+</form>
+
+<h1>Auctions</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date Listed</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Initial Price</th>
+      <th scope="col">Postage</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Buttons</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let auction of auctions$ | async; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ status[auction.status] }}
+      </td>
+      <td>{{ auction.dateListed }}</td>
+      <td>{{ categories[auction.category] }}</td>
+      <td><ngb-highlight [result]="auction.description " [term]="filter.value"></ngb-highlight></td>
+      <td>{{ auction.initialPrice }}</td>
+      <td>{{ auction.postagePaid }}</td>
+      <td>{{ auction.weight }}</td>
+      <td><button class="bth btn-secondary">Sold</button></td>
+    </tr>
+    </tbody>
+  </table>
