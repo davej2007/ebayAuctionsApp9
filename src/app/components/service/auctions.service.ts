@@ -12,6 +12,9 @@ export class AuctionsService {
   getAuctionDetails(){
     return this._HTTP.post<any>(environment.apiAuctions+'/getAuctionInfo',{});
   }
+  getAuctionById(id:String){
+    return this._HTTP.post<any>(environment.apiAuctions+'/getAuctionByID',{id:id});
+  }
   createNewAuction(data:any){
     return this._HTTP.post<any>(environment.apiAuctions+'/saveNewAuction',data);
   }

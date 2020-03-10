@@ -9,7 +9,8 @@ import { AuctionsService } from 'src/app/components/service/auctions.service';
   styleUrls: ['../modal.css']
 })
 export class PostModalContent implements OnInit {
-    @Input() id:String;
+  @Input() id:String;
+  @Input() description:String;
     constructor(
         public activeModal: NgbActiveModal,
         public auction:AuctionsService) {}

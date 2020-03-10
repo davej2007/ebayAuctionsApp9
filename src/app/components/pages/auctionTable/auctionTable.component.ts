@@ -45,10 +45,19 @@ export class AuctionTableComponent implements OnInit {
       )
   }
   // Modal Buttons
-  openUnsold(id:String){
-    console.log(id);
+  openUnsold(auction:IAuction){
     const modalRef = this.modalService.open(UnSoldModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
+    modalRef.result.then(
+      res => {
+        if(res.success){
+          console.log(res)
+        } else {
+          console.log('Error from Modal : ', res)
+        }
+      }
+    );
   }
   openNewAuction() {
     this.modalService.open(NewAuctionModalContent, {backdrop:'static', size: 'xl'}).result.then(
@@ -63,30 +72,35 @@ export class AuctionTableComponent implements OnInit {
       reason => { console.log('Create Cancelled.') }
     );
   }
-  openSold(id:String){
-    console.log(id);
+  openSold(auction:IAuction){
+    console.log(auction._id);
     const modalRef = this.modalService.open(SoldModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
   }
-  openPaid(id:String){
-    console.log(id);
+  openPaid(auction:IAuction){
+    console.log(auction._id);
     const modalRef = this.modalService.open(PaidModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
   }
-  openPost(id:String){
-    console.log(id);
+  openPost(auction:IAuction){
+    console.log(auction._id);
     const modalRef = this.modalService.open(PostModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
   }
-  openDelivery(id:String){
-    console.log(id);
+  openDelivery(auction:IAuction){
+    console.log(auction._id);
     const modalRef = this.modalService.open(DeliveryModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
   }
-  openFees(id:String){
-    console.log(id);
+  openFees(auction:IAuction){
+    console.log(auction._id);
     const modalRef = this.modalService.open(FeesModalContent, {backdrop:'static'});
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id = auction._id;
+    modalRef.componentInstance.description = auction.auction.description;
   }
 }
   

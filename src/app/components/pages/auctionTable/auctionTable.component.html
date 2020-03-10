@@ -29,19 +29,19 @@
       <td *ngIf='status.length>1'>
         {{ StatusList[auction.status] }}
       </td>
-      <td>{{ auction.auction.dateListed | date:'dd-MM-yy' }}</td>
+      <td>{{ auction.auction.dateListed[0] | date:'dd-MM-yy' }}</td>
       <td *ngIf='!category'>{{ CategoryList[auction.category] }}</td>
       <td>{{ auction.auction.description }}</td>
       <td>{{ auction.auction.initialPrice.toFixed(2) }}</td>
       <td>{{ auction.auction.postage.toFixed(2) }}</td>
       <td>{{ auction.auction.weight.toFixed(2) }}</td>
       <td>
-        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openUnsold(auction._id)">Unsold</button>
-        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openSold(auction._id)">Sold</button>        
-        <button class="bth btn-secondary" *ngIf='auction.status==2' (click)="openPaid(auction._id)">Paid</button>
-        <button class="bth btn-secondary" (click)="openPost(auction._id)">Post</button>
-        <button class="bth btn-secondary" (click)="openFees(auction._id)">Fees</button>
-        <button class="bth btn-secondary" (click)="openDelivery(auction._id)">Delivered</button>
+        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openUnsold(auction)">Unsold</button>
+        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openSold(auction)">Sold</button>        
+        <button class="bth btn-secondary" *ngIf='auction.status==2' (click)="openPaid(auction)">Paid</button>
+        <button class="bth btn-secondary" (click)="openPost(auction)">Post</button>
+        <button class="bth btn-secondary" (click)="openFees(auction)">Fees</button>
+        <button class="bth btn-secondary" (click)="openDelivery(auction)">Delivered</button>
       </td>
     </tr>
   </tbody>

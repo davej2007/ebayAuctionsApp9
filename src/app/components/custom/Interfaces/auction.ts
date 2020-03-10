@@ -1,4 +1,5 @@
 export interface IAuction {
+    _id:String,
     status : Number,
     category :Number,
     auction : {

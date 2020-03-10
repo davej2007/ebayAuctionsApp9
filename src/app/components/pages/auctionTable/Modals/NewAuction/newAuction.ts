@@ -83,7 +83,7 @@ export class NewAuctionModalContent implements OnInit {
             this.enableForm();
           }, 2000);
         } else {
-          this.successMsg='New Auction : '+data.auction.description;
+          this.successMsg='New Auction : '+data.auction.auction.description;
           setTimeout(()=>{
             this.successMsg = '';
             this.activeModal.close(data);
