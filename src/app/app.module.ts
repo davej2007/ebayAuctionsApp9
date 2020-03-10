@@ -9,16 +9,18 @@ import { NavbarComponent } from './components/pages/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuctionTableComponent } from './components/pages/auctionTable/auctionTable.component';
-import { newArray } from '@angular/compiler/src/util';
 import { NewAuctionModalContent } from './components/pages/inputModals/newAuction';
+import { TableSortPipe } from './components/custom/table-sort.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     NavbarComponent,
-AuctionTableComponent,
-NewAuctionModalContent
+    AuctionTableComponent,
+      NewAuctionModalContent,
+    TableSortPipe
   ],
   imports: [
     BrowserModule,

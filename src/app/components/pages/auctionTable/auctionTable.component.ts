@@ -1,60 +1,64 @@
 import { Component, PipeTransform, OnInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
-
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewAuctionModalContent } from '../inputModals/newAuction';
 
 import { STATUS, CATEGORIES } from '../../custom/defaultValues';
-
+  
 interface Auction {
   status : Number,
-  dateListed : Number,
-  description : String,
-  category : Number,
-  initialPrice : Number,
-  postagePaid : Number,
-  weight : Number,
-  dateSold :Number,
-  pricePaid :Number,
-  buyer : {name:String, postCode:String},
-  courier : {company:String, trackingNo:String, cost:Number}
+  category :Number,
+  auction : {
+      dateListed : Number,
+      description : String,
+      initialPrice : Number,
+      postage : Number,
+      weight : Number
+  },
+  sold : {
+      dateSold : Number,
+      auctionNo : Number,
+      price : Number,
+      buyer : {name:String, postCode:String}
+  },
+  fees :{
+      finalFee : Number,
+      postageFee : Number,
+      paypalFee : Number,
+  },
+  courier : {
+      company:String,
+      trackingNo:String,
+      cost:Number
+  }
 }
-
-let AUCTIONS : Auction[] = [];
 
 @Component({
   selector: 'auctionTable',
   templateUrl: './auctionTable.component.html',
-  styleUrls: ['./auctionTable.component.css'],
-  providers: [DecimalPipe]
+  styleUrls: ['./auctionTable.component.css']
 })
 export class AuctionTableComponent implements OnInit {
 
-  auctions$: Observable<Auction[]>;
-  filter = new FormControl('');
-  category = new FormControl('');  
-  public avalStatus : [Number] ;
-public status : any = STATUS
-public categories : any = CATEGORIES;
+  public AUCTIONS : Auction[] = [];
+  public StatusList : any = STATUS;
+  public CategoryList : any = CATEGORIES;
+  public StatusShow : [Number] ;
+
+  public category :Number;
+  public status :[Number];
 
   constructor(
     private activatedRoute:ActivatedRoute,
-    public modalService: NgbModal,
-    pipe: DecimalPipe) {
-      this.auctions$ = this.filter.valueChanges.pipe( startWith(''), map(text => search(text, pipe)) );
-      this.auctions$ = this.category.valueChanges.pipe( startWith(''), map(text => selectCategory(text, pipe)) );
-  }
+    public modalService: NgbModal) {  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(
       data=>{
-        this.avalStatus = data.status;
+        this.StatusShow = data.status;
+        this.status=this.StatusShow
         if(data.info.success){
-          AUCTIONS = data.info.auctions;
+          this.AUCTIONS = data.info.auctions;
         } else {
           console.log(data.info.message)
         }
@@ -62,9 +66,14 @@ public categories : any = CATEGORIES;
       err=>{console.log(err)}
       )
   }
+  // Modal Buttons
+  openUnsold(id:String){
+    console.log(id);
+  }
   openNewAuction() {
     this.modalService.open(NewAuctionModalContent, {backdrop:'static'}).result.then(
       res => {
+        console.log(res)
         if(res.success){
           console.log(res)
         } else {
@@ -74,18 +83,9 @@ public categories : any = CATEGORIES;
       reason => { console.log('Create Cancelled.') }
     );
   }
+  openSold(id:String){
+    console.log(id);
+  }
+
 }
-function search(text: string, pipe: PipeTransform): Auction[] {
-  return AUCTIONS.filter(auction => {
-    const term = text.toLowerCase();
-    return auction.description.toLowerCase().includes(term)
-        || pipe.transform(auction.status).includes(term)
-        || pipe.transform(auction.category).includes(term)
-  });
-}
-function selectCategory(text: number, pipe: PipeTransform): Auction[] {
-  return AUCTIONS.filter(auction => {
-    const term = text.toString();;
-    return pipe.transform(auction.category).includes(term)
-  });
-}
+  

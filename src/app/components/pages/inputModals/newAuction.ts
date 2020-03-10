@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable, timer } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { AuctionsService } from '../../service/auctions.service';
+import { CATEGORIES } from 'src/app/components/custom/defaultValues'
 
 
 @Component({
@@ -20,7 +18,6 @@ export class NewAuctionModalContent implements OnInit {
     public auction:AuctionsService) {}
 
   // form Get
-  get status()          { return this.newAuctionForm.get('status');   }
   get dateListed()      { return this.newAuctionForm.get('dateListed');   }
   get description()     { return this.newAuctionForm.get('description');   }
   get initialPrice()    { return this.newAuctionForm.get('initialPrice');   }
@@ -31,14 +28,14 @@ export class NewAuctionModalContent implements OnInit {
   ngOnInit(){}
     
   // Variables
-  errorMsg:String = '';
-  successMsg:String = '';
-  processing:Boolean = false;
-  descriptionValid:Boolean = true;
+  public errorMsg:String = '';
+  public successMsg:String = '';
+  public processing:Boolean = false;
+  public descriptionValid:Boolean = true;
+  public categories : any = CATEGORIES
   
   // Form Definition
   newAuctionForm = this.fb.group({
-    status: [1, [Validators.required]],
     dateListed: [null, [Validators.required]],
     description:['', [Validators.required]],
     initialPrice:[null, [Validators.required]],
@@ -48,7 +45,6 @@ export class NewAuctionModalContent implements OnInit {
   })
   disableForm(){    
     this.processing = true;
-    this.status.disable();
     this.dateListed.disable();
     this.description.disable();
     this.initialPrice.disable();
@@ -58,7 +54,6 @@ export class NewAuctionModalContent implements OnInit {
   }
   enableForm(){
     this.processing = false;
-    this.status.enable();
     this.dateListed.enable();
     this.description.enable();
     this.initialPrice.enable();
@@ -74,16 +69,25 @@ export class NewAuctionModalContent implements OnInit {
       description:newAuction.description,
       initialPrice:newAuction.initialPrice,
       postagePaid:newAuction.postagePaid,
-      category:newAuction.category
+      category:newAuction.category,
+      weight:newAuction.weight
     }
-    console.log(newAuctionData)
     this.auction.createNewAuction(newAuctionData).subscribe(
       data => {
         console.log(data)
         if(!data.success){
-          
+          this.disableForm()
+          this.errorMsg = data.message;
+          setTimeout(()=>{
+            this.errorMsg = '';
+            this.enableForm();
+          }, 2000);
         } else {
-
+          this.successMsg='New Auction : '+data.auction.description;
+          setTimeout(()=>{
+            this.successMsg = '';
+            this.activeModal.close(data);
+          }, 2000);
         }
       },
       err => {

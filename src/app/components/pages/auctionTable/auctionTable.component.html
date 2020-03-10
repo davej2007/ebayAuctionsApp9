@@ -1,44 +1,48 @@
-<button class="btn btn-primary" (click)="openNewAuction()">Create New Auction</button>
+<button class="btn btn-danger" (click)="openNewAuction()">Create New Auction</button>
 <br>
-<form>
-  <div class="form-group form-inline">
-      Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
-  </div>
-</form>
-<form>
-  <div class="form-group form-inline">
-      Select Category: <input class="form-control ml-2" type="number" [formControl]="category"/>
-  </div>
-</form>
-
+<br>
+<div class="btn-group btn-group-toggle">
+  <button type="button" class="btn btn-primary" (click)='status = StatusShow'>All</button>
+  <button type="button" class="btn btn-primary" *ngFor="let sta of StatusShow" (click)='status = [sta]'>{{StatusList[sta]}}</button>
+</div>
+<br>
+<div class="btn-group btn-group-toggle">
+  <button type="button" class="btn btn-secondary" (click)='category= undefined'>Reset</button>
+  <button type="button" class="btn btn-secondary" *ngFor="let cat of CategoryList; index as i" (click)='category= i'>{{cat}}</button>
+</div>
 <h1>Auctions</h1>
 <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Status</th>
-      <th scope="col">Date Listed</th>
-      <th scope="col">Category</th>
-      <th scope="col">Description</th>
-      <th scope="col">Initial Price</th>
-      <th scope="col">Postage</th>
-      <th scope="col">Weight</th>
-      <th scope="col">Buttons</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let auction of auctions$ | async; index as i">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>
-        {{ status[auction.status] }}
+  <thead>
+  <tr>
+    <th scope="col" *ngIf='status.length>1'>Status</th>
+    <th scope="col">Date Listed</th>
+    <th scope="col" *ngIf='!category'>Category</th>
+    <th scope="col">Description</th>
+    <th scope="col">Initial Price</th>
+    <th scope="col">Postage</th>
+    <th scope="col">Weight</th>
+    <th scope="col">Buttons</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let auction of AUCTIONS | tableSort : status : category; index as i" >
+      <td *ngIf='status.length>1'>
+        {{ StatusList[auction.status] }}
       </td>
-      <td>{{ auction.dateListed }}</td>
-      <td>{{ categories[auction.category] }}</td>
-      <td><ngb-highlight [result]="auction.description " [term]="filter.value"></ngb-highlight></td>
-      <td>{{ auction.initialPrice }}</td>
-      <td>{{ auction.postagePaid }}</td>
-      <td>{{ auction.weight }}</td>
-      <td><button class="bth btn-secondary">Sold</button></td>
+      <td>{{ auction.auction.dateListed | date:'dd-MM-yy' }}</td>
+      <td *ngIf='!category'>{{ CategoryList[auction.category] }}</td>
+      <td>{{ auction.auction.description }}</td>
+      <td>{{ auction.auction.initialPrice.toFixed(2) }}</td>
+      <td>{{ auction.auction.postage.toFixed(2) }}</td>
+      <td>{{ auction.auction.weight.toFixed(2) }}</td>
+      <td>
+        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openUnsold(auction._id)">Unsold</button>
+        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openSold(auction._id)">Sold</button>        
+        <button class="bth btn-secondary" *ngIf='auction.status==2'>Paid</button>
+        <button class="bth btn-secondary">Post</button>
+        <button class="bth btn-secondary">Fees</button>
+        <button class="bth btn-secondary">Delivered</button>
+      </td>
     </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>

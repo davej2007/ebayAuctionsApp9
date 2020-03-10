@@ -38,15 +38,16 @@
         placeholder="Initial Price">
       </div>
     </div>
-    <!-- category -->
+    <!-- category --> <!-- Droppdown List-->
     <div class="form-group row">
       <label for="category" class="col-sm-3 col-form-label">Category</label>
       <div class="col-sm-9">
-        <input [class.is-invalid]='(category.invalid) && category.touched' [class.is-valid]='category.valid && category.touched'
-        formControlName='category' type="number" class="form-control" id="category"
-        placeholder="Category Listed As">
+        <select formControlName='category' placeholder="Please Select Category">
+          <option *ngFor="let category of categories; index as i" [ngValue]='i'>{{category}}</option>
+        </select>
       </div>
     </div>
+
     <!-- postagePaid -->
     <div class="form-group row">
       <label for="postage" class="col-sm-3 col-form-label">Postage Paids</label>
