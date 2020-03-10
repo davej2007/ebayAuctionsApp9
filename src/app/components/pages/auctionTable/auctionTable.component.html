@@ -38,10 +38,10 @@
       <td>
         <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openUnsold(auction._id)">Unsold</button>
         <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openSold(auction._id)">Sold</button>        
-        <button class="bth btn-secondary" *ngIf='auction.status==2'>Paid</button>
-        <button class="bth btn-secondary">Post</button>
-        <button class="bth btn-secondary">Fees</button>
-        <button class="bth btn-secondary">Delivered</button>
+        <button class="bth btn-secondary" *ngIf='auction.status==2' (click)="openPaid(auction._id)">Paid</button>
+        <button class="bth btn-secondary" (click)="openPost(auction._id)">Post</button>
+        <button class="bth btn-secondary" (click)="openFees(auction._id)">Fees</button>
+        <button class="bth btn-secondary" (click)="openDelivery(auction._id)">Delivered</button>
       </td>
     </tr>
   </tbody>

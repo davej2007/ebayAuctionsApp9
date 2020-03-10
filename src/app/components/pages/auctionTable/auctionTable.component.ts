@@ -1,37 +1,15 @@
-import { Component, PipeTransform, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewAuctionModalContent } from '../inputModals/newAuction';
-
+import { IAuction } from '../../custom/Interfaces/auction';
 import { STATUS, CATEGORIES } from '../../custom/defaultValues';
-  
-interface Auction {
-  status : Number,
-  category :Number,
-  auction : {
-      dateListed : Number,
-      description : String,
-      initialPrice : Number,
-      postage : Number,
-      weight : Number
-  },
-  sold : {
-      dateSold : Number,
-      auctionNo : Number,
-      price : Number,
-      buyer : {name:String, postCode:String}
-  },
-  fees :{
-      finalFee : Number,
-      postageFee : Number,
-      paypalFee : Number,
-  },
-  courier : {
-      company:String,
-      trackingNo:String,
-      cost:Number
-  }
-}
+import { UnSoldModalContent } from './Modals/0-UnSold/UnSold';
+import { NewAuctionModalContent } from './Modals/NewAuction/newAuction';
+import { SoldModalContent } from './Modals/2-Sold/sold';
+import { PaidModalContent } from './Modals/3-Paid/paid';
+import { PostModalContent } from './Modals/4-Post/post';
+import { DeliveryModalContent } from './Modals/5-Delivery/delivery';
+import { FeesModalContent } from './Modals/Fees/fees';
 
 @Component({
   selector: 'auctionTable',
@@ -40,7 +18,7 @@ interface Auction {
 })
 export class AuctionTableComponent implements OnInit {
 
-  public AUCTIONS : Auction[] = [];
+  public AUCTIONS : IAuction[] = [];
   public StatusList : any = STATUS;
   public CategoryList : any = CATEGORIES;
   public StatusShow : [Number] ;
@@ -69,9 +47,11 @@ export class AuctionTableComponent implements OnInit {
   // Modal Buttons
   openUnsold(id:String){
     console.log(id);
+    const modalRef = this.modalService.open(UnSoldModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
   }
   openNewAuction() {
-    this.modalService.open(NewAuctionModalContent, {backdrop:'static'}).result.then(
+    this.modalService.open(NewAuctionModalContent, {backdrop:'static', size: 'xl'}).result.then(
       res => {
         console.log(res)
         if(res.success){
@@ -85,7 +65,28 @@ export class AuctionTableComponent implements OnInit {
   }
   openSold(id:String){
     console.log(id);
+    const modalRef = this.modalService.open(SoldModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
   }
-
+  openPaid(id:String){
+    console.log(id);
+    const modalRef = this.modalService.open(PaidModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
+  }
+  openPost(id:String){
+    console.log(id);
+    const modalRef = this.modalService.open(PostModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
+  }
+  openDelivery(id:String){
+    console.log(id);
+    const modalRef = this.modalService.open(DeliveryModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
+  }
+  openFees(id:String){
+    console.log(id);
+    const modalRef = this.modalService.open(FeesModalContent, {backdrop:'static'});
+    modalRef.componentInstance.id = id;
+  }
 }
   

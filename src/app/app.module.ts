@@ -9,8 +9,14 @@ import { NavbarComponent } from './components/pages/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuctionTableComponent } from './components/pages/auctionTable/auctionTable.component';
-import { NewAuctionModalContent } from './components/pages/inputModals/newAuction';
 import { TableSortPipe } from './components/custom/table-sort.pipe';
+import { NewAuctionModalContent } from './components/pages/auctionTable/Modals/NewAuction/newAuction';
+import { UnSoldModalContent } from './components/pages/auctionTable/Modals/0-UnSold/UnSold';
+import { PaidModalContent } from './components/pages/auctionTable/Modals/3-Paid/paid';
+import { SoldModalContent } from './components/pages/auctionTable/Modals/2-Sold/sold';
+import { PostModalContent } from './components/pages/auctionTable/Modals/4-Post/post';
+import { DeliveryModalContent } from './components/pages/auctionTable/Modals/5-Delivery/delivery';
+import { FeesModalContent } from './components/pages/auctionTable/Modals/Fees/fees';
 
 
 @NgModule({
@@ -20,6 +26,12 @@ import { TableSortPipe } from './components/custom/table-sort.pipe';
     NavbarComponent,
     AuctionTableComponent,
       NewAuctionModalContent,
+      UnSoldModalContent,
+      SoldModalContent,
+      PaidModalContent,
+      PostModalContent,
+      DeliveryModalContent,
+      FeesModalContent,
     TableSortPipe
   ],
   imports: [
@@ -30,7 +42,13 @@ import { TableSortPipe } from './components/custom/table-sort.pipe';
     FormsModule, ReactiveFormsModule, // Forms
   ],
   entryComponents: [
-    NewAuctionModalContent
+    NewAuctionModalContent,
+    UnSoldModalContent,
+    SoldModalContent,
+    PaidModalContent,
+    PostModalContent,
+    DeliveryModalContent,
+    FeesModalContent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AuctionsService } from '../../service/auctions.service';
 import { CATEGORIES } from 'src/app/components/custom/defaultValues'
+import { AuctionsService } from 'src/app/components/service/auctions.service';
 
 
 @Component({
   selector: 'newAuction-modal-content',
   templateUrl: `./newAuction.html`,
-  styleUrls: ['./modal.css']
+  styleUrls: ['../modal.css']
 })
 export class NewAuctionModalContent implements OnInit {
 
