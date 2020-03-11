@@ -24,4 +24,7 @@ export class AuctionsService {
   updateSoldAuction(data:any){
     return this._HTTP.post<any>(environment.apiAuctions+'/updateSoldByID',data);
   }
+  updatePaidAuction(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updatePaidByID',data);
+  }
 }

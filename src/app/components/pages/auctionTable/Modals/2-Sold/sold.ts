@@ -76,7 +76,7 @@ export class SoldModalContent implements OnInit {
             this.enableForm();
           }, 2000);
         } else {
-          this.successMsg='New Auction : '+data.auction.auction.description;
+          this.successMsg='Auction Sold : '+data.auction.auction.description;
           setTimeout(()=>{
             this.successMsg = '';
             this.activeModal.close(data);

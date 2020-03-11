@@ -95,15 +95,15 @@ export class AuctionTableComponent implements OnInit {
     const modalRef = this.modalService.open(PaidModalContent, {backdrop:'static'});
     modalRef.componentInstance.id = auction._id;
     modalRef.componentInstance.description = auction.auction.description;
-    modalRef.result.then(
-      res => {
-        if(res.success){
-          this.reloadTableData()
-        } else {
-          console.log('Error from Modal : ', res)
-        }
-      }
-    );
+    // modalRef.result.then(
+    //   res => {
+    //     if(res.success){
+    //       this.reloadTableData()
+    //     } else {
+    //       console.log('Error from Modal : ', res)
+    //     }
+    //   }
+    // );
   }
   
   openPost(auction:IAuction){
