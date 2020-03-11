@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAuction } from '../../custom/Interfaces/auction';
 import { STATUS, CATEGORIES } from '../../custom/defaultValues';
@@ -10,6 +10,7 @@ import { PaidModalContent } from './Modals/3-Paid/paid';
 import { PostModalContent } from './Modals/4-Post/post';
 import { DeliveryModalContent } from './Modals/5-Delivery/delivery';
 import { FeesModalContent } from './Modals/Fees/fees';
+import { AuctionsService } from '../../service/auctions.service';
 
 @Component({
   selector: 'auctionTable',
@@ -28,7 +29,9 @@ export class AuctionTableComponent implements OnInit {
 
   constructor(
     private activatedRoute:ActivatedRoute,
-    public modalService: NgbModal) {  }
+    public modalService: NgbModal,
+    public _auction:AuctionsService,
+    public _Router:Router) {  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(
@@ -52,7 +55,16 @@ export class AuctionTableComponent implements OnInit {
     modalRef.result.then(
       res => {
         if(res.success){
-          console.log(res)
+          this._auction.getAuctionDetails().subscribe(
+            data=>{
+              if(data.success){
+                this.AUCTIONS = data.auctions;
+              } else {
+                console.log(data.message)
+              }
+            },
+            err=>{console.log(err)}
+            )
         } else {
           console.log('Error from Modal : ', res)
         }
@@ -77,6 +89,24 @@ export class AuctionTableComponent implements OnInit {
     const modalRef = this.modalService.open(SoldModalContent, {backdrop:'static'});
     modalRef.componentInstance.id = auction._id;
     modalRef.componentInstance.description = auction.auction.description;
+    modalRef.result.then(
+      res => {
+        if(res.success){
+          this._auction.getAuctionDetails().subscribe(
+            data=>{
+              if(data.success){
+                this.AUCTIONS = data.auctions;
+              } else {
+                console.log(data.message)
+              }
+            },
+            err=>{console.log(err)}
+            )
+        } else {
+          console.log('Error from Modal : ', res)
+        }
+      }
+    );
   }
   openPaid(auction:IAuction){
     console.log(auction._id);
@@ -102,5 +132,6 @@ export class AuctionTableComponent implements OnInit {
     modalRef.componentInstance.id = auction._id;
     modalRef.componentInstance.description = auction.auction.description;
   }
+
 }
   

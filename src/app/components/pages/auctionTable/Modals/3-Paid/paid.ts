@@ -22,4 +22,5 @@ export class PaidModalContent implements OnInit {
     public successMsg:String = '';
     public processing:Boolean = false;
     
+    paid(){}
 }

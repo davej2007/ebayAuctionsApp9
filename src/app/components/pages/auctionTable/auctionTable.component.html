@@ -36,12 +36,12 @@
       <td>{{ auction.auction.postage.toFixed(2) }}</td>
       <td>{{ auction.auction.weight.toFixed(2) }}</td>
       <td>
-        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openUnsold(auction)">Unsold</button>
-        <button class="bth btn-secondary" *ngIf='auction.status==1' (click)="openSold(auction)">Sold</button>        
-        <button class="bth btn-secondary" *ngIf='auction.status==2' (click)="openPaid(auction)">Paid</button>
-        <button class="bth btn-secondary" (click)="openPost(auction)">Post</button>
-        <button class="bth btn-secondary" (click)="openFees(auction)">Fees</button>
-        <button class="bth btn-secondary" (click)="openDelivery(auction)">Delivered</button>
+        <button class="bth btn-secondary" *ngIf='[0,1].indexOf(auction.status) != -1' (click)="openUnsold(auction)">Unsold</button>
+        <button class="bth btn-secondary" *ngIf='[1].indexOf(auction.status) != -1' (click)="openSold(auction)">Sold</button>        
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openPaid(auction)">Paid</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openPost(auction)">Post</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openFees(auction)">Fees</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openDelivery(auction)">Delivered</button>
       </td>
     </tr>
   </tbody>

@@ -18,4 +18,7 @@ export class AuctionsService {
   createNewAuction(data:any){
     return this._HTTP.post<any>(environment.apiAuctions+'/saveNewAuction',data);
   }
+  updateReListByID(id:String, date:string){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updateReListByID',{id:id,date:Date.parse(date)});
+  }
 }
