@@ -21,4 +21,7 @@ export class AuctionsService {
   updateReListByID(id:String, date:string){
     return this._HTTP.post<any>(environment.apiAuctions+'/updateReListByID',{id:id,date:Date.parse(date)});
   }
+  updateSoldAuction(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updateSoldByID',data);
+  }
 }

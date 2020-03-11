@@ -2,6 +2,7 @@
   <h4 class="modal-title">Sold Auction</h4>
 </div>
 <div class="modal-body">
+  <h4>{{ description }}</h4>
   <form [formGroup]='SoldForm'>
     <!-- dateSold -->
     <div class="form-group row">
@@ -52,7 +53,7 @@
 </div>
 <div class="modal-footer">
   <div *ngIf='!successMsg && !errorMsg'>
-    <button type="button" class="btn btn-outline-dark" [disabled]='processing' (click)="sold(SoldForm.value)">Sold</button>
+    <button type="button" class="btn btn-outline-dark" [disabled]='processing' (click)="submit(SoldForm.value)">Sold</button>
     <button type="button" class="btn btn-outline-dark" [disabled]='processing' (click)="activeModal.close('cancel')">Cancel</button>
   </div>
   <div class='messages'> <!-- messages -->

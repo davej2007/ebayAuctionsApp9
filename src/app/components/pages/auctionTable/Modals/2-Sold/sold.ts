@@ -53,8 +53,41 @@ export class SoldModalContent implements OnInit {
     this.name.enable();
     this.postCode.enable();
   }
-  sold(details:any){
-    console.log(details)
+  submit(soldAuction){
+    console.log(soldAuction);
+    this.disableForm();
+    let soldAuctionData = {
+      id:this.id,
+      dateSold:Date.parse(soldAuction.dateSold),
+      auction:soldAuction.auction,
+      price:soldAuction.price,
+      postagePaid:soldAuction.postagePaid,
+      name:soldAuction.name,
+      postCode:soldAuction.postCode.toUpperCase()
+    }
+    this._Auction.updateSoldAuction(soldAuctionData).subscribe(
+      data => {
+        console.log(data)
+        if(!data.success){
+          this.disableForm()
+          this.errorMsg = data.message;
+          setTimeout(()=>{
+            this.errorMsg = '';
+            this.enableForm();
+          }, 2000);
+        } else {
+          this.successMsg='New Auction : '+data.auction.auction.description;
+          setTimeout(()=>{
+            this.successMsg = '';
+            this.activeModal.close(data);
+          }, 2000);
+        }
+      },
+      err => {
+        alert('Server Error : '+err.message+' If this continues Please contact Systems.');
+        this.enableForm();
+      }
+    )
   }
     
 }
