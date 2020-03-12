@@ -12,11 +12,13 @@ import { AuctionTableComponent } from './components/pages/auctionTable/auctionTa
 import { TableSortPipe } from './components/custom/table-sort.pipe';
 import { NewAuctionModalContent } from './components/pages/auctionTable/Modals/NewAuction/newAuction';
 import { UnSoldModalContent } from './components/pages/auctionTable/Modals/0-UnSold/UnSold';
-import { PaidModalContent } from './components/pages/auctionTable/Modals/3-Paid/paid';
 import { SoldModalContent } from './components/pages/auctionTable/Modals/2-Sold/sold';
-import { PostModalContent } from './components/pages/auctionTable/Modals/4-Post/post';
-import { DeliveryModalContent } from './components/pages/auctionTable/Modals/5-Delivery/delivery';
-import { FeesModalContent } from './components/pages/auctionTable/Modals/Fees/fees';
+import { PaidModalContent } from './components/pages/soldItemsTable/Modals/3-Paid/paid';
+import { PostModalContent } from './components/pages/soldItemsTable/Modals/4-Post/post';
+import { DeliveryModalContent } from './components/pages/soldItemsTable/Modals/5-Delivery/delivery';
+import { FeesModalContent } from './components/pages/soldItemsTable/Modals/Fees/fees';
+import { SoldTableComponent } from './components/pages/soldItemsTable/soldTable.component';
+import { DetailAuctionsComponent } from './components/pages/detail-auctions/detail-auctions.component';
 
 
 @NgModule({
@@ -28,11 +30,13 @@ import { FeesModalContent } from './components/pages/auctionTable/Modals/Fees/fe
       NewAuctionModalContent,
       UnSoldModalContent,
       SoldModalContent,
+    SoldTableComponent,
       PaidModalContent,
       PostModalContent,
       DeliveryModalContent,
       FeesModalContent,
-    TableSortPipe
+    TableSortPipe,
+    DetailAuctionsComponent
   ],
   imports: [
     BrowserModule,

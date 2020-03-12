@@ -1,5 +1,3 @@
-<button class="btn btn-danger" (click)="openNewAuction()">Create New Auction</button>
-<br>
 <br>
 <div class="btn-group btn-group-toggle">
   <button type="button" class="btn btn-primary" (click)='status = StatusShow'>All</button>
@@ -18,7 +16,7 @@
     <th scope="col">Date Listed</th>
     <th scope="col" *ngIf='!category'>Category</th>
     <th scope="col">Description</th>
-    <th scope="col">Initial Price</th>
+    <th scope="col">Price Paid</th>
     <th scope="col">Postage</th>
     <th scope="col">Weight</th>
     <th scope="col">Buttons</th>
@@ -32,12 +30,14 @@
       <td>{{ auction.auction.dateListed[0] | date:'dd-MM-yy' }}</td>
       <td *ngIf='!category'>{{ CategoryList[auction.category] }}</td>
       <td>{{ auction.auction.description }}</td>
-      <td>{{ auction.auction.initialPrice.toFixed(2) }}</td>
+      <td>{{ auction.sold.price.toFixed(2) }}</td>
       <td>{{ auction.auction.postage.toFixed(2) }}</td>
       <td>{{ auction.auction.weight.toFixed(2) }}</td>
-      <td>
-        <button class="bth btn-secondary" *ngIf='[0,1].indexOf(auction.status) != -1' (click)="openUnsold(auction)">Unsold</button>
-        <button class="bth btn-secondary" *ngIf='[1].indexOf(auction.status) != -1' (click)="openSold(auction)">Sold</button>
+      <td>       
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openPaid(auction)">Paid</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openPost(auction)">Post</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openFees(auction)">Fees</button>
+        <button class="bth btn-secondary" *ngIf='[2,3,4,5].indexOf(auction.status) != -1' (click)="openDelivery(auction)">Delivered</button>
         <button class="bth btn-danger" [routerLink]="['/details', auction._id]">Details</button>
       </td>
     </tr>
