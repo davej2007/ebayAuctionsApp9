@@ -1,0 +1,59 @@
+<h1>{{ AUCTION?.auction.description }}</h1>
+<table class="table table-hover" *ngIf='processing'>
+    <tbody>
+      <tr>
+        <th>Date Listed</th>
+        <td><p *ngFor='let date of AUCTION?.auction.dateListed'>{{  date | date:'dd-MM-yy' }}</p></td>
+        <th>Category</th>
+        <td>{{ CategoryList[AUCTION?.category] }}</td>
+        <th>Status</th>
+        <td>{{ StatusList[AUCTION?.status] }}</td>
+      </tr>
+      <tr>
+        <th>initial Price</th>
+        <td>{{ AUCTION?.auction.initialPrice | displayPounds }}</td>
+        <th>Postage</th>
+        <td>{{ AUCTION?.auction.postage | displayPounds }}</td>
+        <th>Weight</th>
+        <td>{{ AUCTION?.auction.weight | displayPounds }}</td>
+      </tr>
+      <tr>
+        <th>Date Sold</th>
+        <td>{{ AUCTION?.sold.dateSold | date:'dd-MM-yy' }}</td>
+        <th>Sold To : </th>
+        <td>{{ AUCTION?.sold.buyer.userName }}<br>
+          {{ AUCTION?.sold.buyer.name }}</td>
+        <th>Post Code</th>
+        <td>{{ AUCTION?.sold.buyer.postCode }}</td>        
+      </tr>
+      <tr>
+        <th>Ebay No</th>
+        <td>{{ AUCTION?.sold.auctionNo }}</td>
+        <th>Final Price</th>
+        <td>{{ AUCTION?.sold.price | displayPounds }}</td>
+        <th>Postage</th>
+        <td>{{ AUCTION?.paid.postage | displayPounds }}</td>
+      </tr>
+      <tr>
+        <th>Courier</th>
+        <td>{{ AUCTION?.courier.company }}</td>
+        <th>Tracking No</th>
+        <td>{{ AUCTION?.courier.trackingNo }}</td>
+        <th>Courier Cost</th>
+        <td>{{ AUCTION?.courier.cost | displayPounds }}</td>
+      </tr>
+      <tr>
+        <th>Ebay Final Fee</th>
+        <td>{{ AUCTION?.fees.finalFee | displayPounds }}</td>
+        <th>Ebay Postage Fee</th>
+        <td>{{ AUCTION?.fees.postageFee | displayPounds }}</td>
+        <th>Paypal Fee</th>
+        <td>{{ AUCTION?.fees.paypalFee | displayPounds }}</td>
+      </tr>
+      <tr>
+        <th>TOTAL : </th>
+        <td>{{ TOTAL | displayPounds }}</td>
+        
+      </tr>
+    </tbody>
+  </table>

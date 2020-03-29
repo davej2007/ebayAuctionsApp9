@@ -1,0 +1,78 @@
+<h1>Auctions</h1>
+<div class="row">
+  <table style='width:100%'>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Date Sold</th>
+        <th scope="col">Ebay Auction Number</th>
+        <th scope="col">Description</th>   
+        <th scope="col">Final Listing Fees</th>    
+        <th scope="col">Postage Fees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let auction of FeesList; index as i" >
+        <td>{{ auction._id }}</td>
+        <td>{{ auction.dateSold }}</td>
+        <td>{{ auction.ebayAuctionNumber }}</td>
+        <td>{{ auction.description }}</td>
+        <td>{{ auction.finalFee | displayPounds}}</td>
+        <td>{{ auction.postageFee }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class=".col-sm-9 .offset-sm-3">
+    <button type="button" class="btn btn-outline-success" [disabled]='processing' (click)="finished()">Finished</button>
+    <button type="button" class="btn btn-outline-danger" [disabled]='processing' (click)="cancel()">Cancel</button>
+  </div>
+</div>
+<div class="row">
+  <form [formGroup]='FeeForm'>
+    <!-- ebayAuctionNumber -->
+    <div class="form-group row">
+      <label for="auction" class="col-sm-3 col-form-label">Item Auction Number</label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]='(ebayAuctionNumber.invalid || !validEbayAuction) && ebayAuctionNumber.touched' [class.is-valid]='ebayAuctionNumber.valid && validEbayAuction && ebayAuctionNumber.touched'
+        formControlName='ebayAuctionNumber' type="text" class="form-control" id="auction"
+        placeholder="Ebay Auction Number" (blur)='findAuctionNumber()'>
+      </div>
+      {{validEbayMessage}}
+    </div>
+    <!-- description -->
+    <div class="form-group row">
+      <label for="description" class="col-sm-3 col-form-label">Item Description</label>
+      <div class="col-sm-9">
+        <input readonly [class.is-valid]='description.valid && description.touched'
+        formControlName='description' type="text" class="form-control" id="description"
+        placeholder="Item Description">
+      </div>
+    </div>
+    <!-- finalFee -->
+    <div class="form-group row">
+      <label for="finalFee" class="col-sm-3 col-form-label">Ebay Final Fee</label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]='(finalFee.invalid) && finalFee.touched' [class.is-valid]='finalFee.valid && finalFee.touched'
+        formControlName='finalFee' type="number" class="form-control" id="finalFee"
+        placeholder="Ebay Final Fee">
+      </div>
+    </div>
+    <!-- postageFee -->
+    <div class="form-group row">
+      <label for="postageFee" class="col-sm-3 col-form-label">Ebay Postage Fee</label>
+      <div class="col-sm-9">
+        <input [class.is-invalid]='(postageFee.invalid) && postageFee.touched' [class.is-valid]='postageFee.valid && postageFee.touched'
+        formControlName='postageFee' type="number" class="form-control" id="postageFee"
+        placeholder="Ebay Postage Fee">
+      </div>
+    </div>
+    <div class='messages'> <!-- messages -->
+      <div class="alert alert-success" role="alert" *ngIf='successMsg'>{{ successMsg }}</div>
+      <div class="alert alert-danger" role="alert" *ngIf='errorMsg'>{{ errorMsg }}</div>
+    </div>
+    <div *ngIf='!successMsg && !errorMsg'>
+      <button type="button" class="btn btn-outline-dark" [disabled]='processing' (click)="submit(FeeForm.value)">Update</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]='processing' (click)="clear()">Clear</button>
+    </div>
+  </form>
+</div>

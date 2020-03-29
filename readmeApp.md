@@ -38,3 +38,5 @@ imports: [NgbModule, ...],
         err =>  {
           alert('Server Error : '+err.message+' If this continues Please contact Systems.');
         }
+
+findIndex((i: any ) => i.job === job)

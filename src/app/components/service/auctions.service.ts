@@ -27,4 +27,16 @@ export class AuctionsService {
   updatePaidAuction(data:any){
     return this._HTTP.post<any>(environment.apiAuctions+'/updatePaidByID',data);
   }
+  updatePostAuction(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updatePostByID',data);
+  }
+  updateDeliveredAuction(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updateDeliveryByID',data);
+  }
+  updateFeesAuction(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/updateFeesByID',data);
+  }
+  findEbayAuctionNumber(data:any){
+    return this._HTTP.post<any>(environment.apiAuctions+'/findEbayAuction',{auction:data});
+  }
 }

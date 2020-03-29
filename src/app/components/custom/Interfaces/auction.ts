@@ -1,28 +1,33 @@
 export interface IAuction {
     _id:String,
-    status : Number,
-    category :Number,
+    status : number,
+    category :number,
     auction : {
-        dateListed : Number,
+        dateListed : number,
         description : String,
-        initialPrice : Number,
-        postage : Number,
-        weight : Number
+        initialPrice : number,
+        postage : number,
+        weight : number
     },
     sold : {
-        dateSold : Number,
-        auctionNo : Number,
-        price : Number,
-        buyer : {name:String, postCode:String}
+        dateSold : number,
+        auctionNo : number,
+        price : number,
+        buyer : {userName:String, name:String, postCode:String}
+    },
+    paid : {
+        paidBy          : String,
+        postage         : number,
+        transactionNo   : String
     },
     fees :{
-        finalFee : Number,
-        postageFee : Number,
-        paypalFee : Number,
+        finalFee : number,
+        postageFee : number,
+        paypalFee : number,
     },
     courier : {
         company:String,
         trackingNo:String,
-        cost:Number
+        cost:number
     }
-  }
+}
